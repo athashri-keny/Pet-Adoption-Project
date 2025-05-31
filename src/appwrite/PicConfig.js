@@ -16,15 +16,17 @@ class DatabaseService{
     }
    
 
-async CreatePost({Petname  , About , Location , UserId , PostId}){
+async CreatePost({Petname  , About , Location , UserId , PetImage, PostId}){
   try {
      return await this.Database.createDocument(conf.appwriteDatabaseId , conf.appwriteCollectionId , PostId,
         {
             Petname,
             About,
             Location,
-           UserId
-        }
+           UserId,
+           PetImage,
+           PostId
+         }
      )
   } catch (error) {
     console.error("Error while creating post " , error)
@@ -69,9 +71,9 @@ async getPosts(quries = [Query.equal("status" , "active")]) {
 }
 
 // For database Storge
-async uploadFile(FileId) {
+async uploadFile(File) {
     try {
-        return await this.storage.createFile(conf.appwriteBucketId , FileId)
+        return await this.storage.createFile(conf.appwriteBucketId , ID.unique() , File)
     } catch (error) {
         console.error("Error while Uploading File" , error)
     }

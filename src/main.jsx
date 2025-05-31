@@ -9,6 +9,7 @@ import Home from './Components/Home.jsx'
 import Login from './Components/Login.jsx'
 import SignUp from './Components/SignUp.jsx'
 import AuthLayout from './AuthLayout.jsx'
+import Addpost from './Components/Addpost.jsx'
 
 
 const Router = createBrowserRouter([
@@ -33,6 +34,14 @@ const Router = createBrowserRouter([
         element: (
           <AuthLayout authentication = {false}> 
             <SignUp/>
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/add-post",
+        element: (
+          <AuthLayout authentication = {true}>
+           <Addpost/>
           </AuthLayout>
         )
       }

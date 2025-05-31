@@ -12,6 +12,7 @@ const navigate = useNavigate()
 const [error , seterror] = useState("")
 const dispatch = useDispatch()
 
+
 const HandleLogin =  async(data) => {
    seterror("")
    try {
@@ -19,8 +20,8 @@ const HandleLogin =  async(data) => {
     if (userdata) {
       dispatch(login(userdata))
       navigate('/')
+     console.log("user logged in Sucessfully" , userdata)
     }
-    console.log("user logged in Sucessfully" , userdata)
    } catch (error) {
     console.log("Error while loggin in " , seterror(error))
    }
