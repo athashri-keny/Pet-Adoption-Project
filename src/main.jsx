@@ -10,6 +10,8 @@ import Login from './Components/Login.jsx'
 import SignUp from './Components/SignUp.jsx'
 import AuthLayout from './AuthLayout.jsx'
 import Addpost from './Components/Addpost.jsx'
+import Puppies from './Components/Puppies.jsx'
+import Post from './Components/Post.jsx'
 
 
 const Router = createBrowserRouter([
@@ -25,7 +27,7 @@ const Router = createBrowserRouter([
         path: "/login",
         element: (
           <AuthLayout authentication={false}>
-           <Login/> {/*children*/}
+           <Login/> 
           </AuthLayout>
         )
       },
@@ -42,6 +44,23 @@ const Router = createBrowserRouter([
         element: (
           <AuthLayout authentication = {true}>
            <Addpost/>
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/puppies",
+        element: (
+          <AuthLayout authentication = {true}>
+            <Puppies/>
+          </AuthLayout>
+         
+        )
+      },
+      {
+        path: "/post/PostId",
+        element: (
+          <AuthLayout>
+            <Post/>
           </AuthLayout>
         )
       }

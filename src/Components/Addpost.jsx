@@ -29,8 +29,6 @@ const GetCurrentUser = async () => {
 GetCurrentUser()
 } , [])
 
-
-
 const handle = async (data) => {
 
 try {
@@ -45,8 +43,15 @@ const FileId = uploadedFile.$id
     Petname: data?.Petname,
     About: data?.About,
     Location: data?.Location,
-    PetImage: FileId
+    PetImage: FileId,
+    Gender: data?.Gender,
+    Vaccinated: data?.Vaccinated,
+    AGE: data?.AGE,
+    Breed: data?.Breed,
+    Size: data?.Size,
+    AnimalType: data?.AnimalType
   }
+  
    await DatabaseServicee.CreatePost(newpost)
       console.log("Post created successfully" , newpost)
       navigate('/')
@@ -92,6 +97,90 @@ const FileId = uploadedFile.$id
           })}
          />
          {errors.File && (<p style={{color: "red"}}>{errors.File.message}</p>)}
+         <input
+         type='text'
+         className='bg-white'
+         placeholder='Enter Age'
+         {...register("AGE" , {
+          required: "AGE is required!"
+         })}
+         />
+             {errors.Age && (<p style={{color: "red"}}>{errors.Age.message}</p>)}
+         <input
+         type='text'
+         className='bg-white'
+         placeholder='Breed'
+         {...register("Breed"  , {
+          required: "Breed is required!"
+         })}
+         />
+          {errors.Breed && (<p style={{color: "red"}}>{errors.Breed.message}</p>)}
+         <input
+         type='text'
+         className='bg-white'
+         placeholder='Size'
+         {...register("Size" , {
+          required: "Size is required!"
+         })}
+         />
+          {errors.Size && (<p style={{color: "red"}}>{errors.Size.message}</p>)}
+          <p>Gender? </p>
+          <input
+          type='radio'
+          name='Gender'
+          value= "Male"
+          id='Male'
+          {...register('Gender' , {
+            required: "Gender is required!"
+          })}
+          />
+          <label htmlFor='Male'> Male</label>
+           {errors.gender && (<p style={{color: "red"}}>{errors.gender.message}</p>)}
+           <input
+           type='radio'
+           name='gender'
+           value= 'Female'
+           id='Female'
+           {...register("Gender" , {
+            required: "Gender is required!"
+           })}
+           />
+           <label htmlFor='Female'> Female </label>
+         <p>Vaccinated?</p>
+        <input 
+         type="radio" 
+         name="Vaccinated" 
+         value="No" 
+         id="no"
+         {...register("Vaccinated" , {
+          required: "Vaccinated is required!"
+         })}
+         />
+  <label for="no">No</label>
+  <input 
+         type="radio" 
+         name="Vaccinated" 
+          value="Yes" 
+          id="yes"
+          {...register("Vaccinated" , {
+            required: "Vaccinated is required!"
+          })}
+  />
+  <label htmlFor="AnimalType">Animal Type</label>
+<select
+  id="AnimalType"
+  className="p-2 border rounded"
+  {...register("AnimalType", {
+    required: "Animal Type is required!",
+  })}
+>
+  <option value="">-- Select --</option>
+  <option value="Dog">Dog</option>
+  <option value="Cat">Cat</option>
+  <option value="Other">Other</option>
+</select>
+
+  <label for="yes">Yes</label>
           <button className='bg-red-600'> Submit</button>
       </form>
     </div>

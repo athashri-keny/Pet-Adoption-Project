@@ -16,16 +16,22 @@ class DatabaseService{
     }
    
 
-async CreatePost({Petname  , About , Location , UserId , PetImage, PostId}){
+async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , Vaccinated , AGE , Breed , Size , AnimalType}){
   try {
      return await this.Database.createDocument(conf.appwriteDatabaseId , conf.appwriteCollectionId , PostId,
         {
-            Petname,
-            About,
-            Location,
-           UserId,
+         Petname,
+         About,
+        Location,
+        UserId,
            PetImage,
-           PostId
+           PostId,
+           Gender,
+           Vaccinated , 
+           AGE,
+           Breed,
+           Size,
+           AnimalType
          }
      )
   } catch (error) {
@@ -57,12 +63,11 @@ async UpdatePost(PostId , {Petname , About , Location , UserId }) {
     }
 }
 
-async getPosts(quries = [Query.equal("status" , "active")]) {
+async getPosts() {
     try {
        const respone = await this.Database.listDocuments(
-        conf.appwriteCollectionId ,
-        conf.appwriteDatabaseId,
-        quries
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionId,
        ) 
        return respone
     } catch (error) {
@@ -88,10 +93,14 @@ async DeleteFile(FileId) {
     }
 }
 
-async GetFilePreview(FileId) {
+async GetFilePreview (FileId) {
     try {
-       return await this.storage.getFilePreview( conf.appwriteBucketId , FileId)  
-    } catch (error) {
+           if (!FileId) {
+  throw new Error("FileId is required");
+}
+     return    await this.storage.getFilePreview(conf.appwriteBucketId, FileId)
+  
+        } catch (error) {
         console.error("error While PreViwing the File" , error)
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { set, useForm } from 'react-hook-form'
+import {  useForm } from 'react-hook-form'
 import { useNavigate ,Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import AuthService from '../appwrite/Auth'
