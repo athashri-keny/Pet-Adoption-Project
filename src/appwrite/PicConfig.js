@@ -16,7 +16,7 @@ class DatabaseService{
     }
    
 
-async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , Vaccinated , AGE , Breed , Size , AnimalType}){
+async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , isVaccinated , AGE , Breed , Size , AnimalType , Neutered}){
   try {
      return await this.Database.createDocument(conf.appwriteDatabaseId , conf.appwriteCollectionId , PostId,
         {
@@ -27,13 +27,16 @@ async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gend
            PetImage,
            PostId,
            Gender,
-           Vaccinated , 
+           isVaccinated , 
            AGE,
            Breed,
            Size,
-           AnimalType
+           AnimalType,
+           Neutered
          }
+         
      )
+       
   } catch (error) {
     console.error("Error while creating post " , error)
   }
@@ -48,21 +51,6 @@ async DeletePost(PostId) {
     }
 }
 
-async UpdatePost(PostId , {Petname , About , Location , UserId }) {
-    try {
-        return await this.Database.updateDocument(conf.appwriteCollectionId , conf.appwriteDatabaseId , PostId,
-            {
-                Petname,
-                About,
-                Location,
-                UserId
-            }
-         )
-    } catch (error) {
-        console.error("Error while Updating Post")
-    }
-}
-
 async getPosts() {
     try {
        const respone = await this.Database.listDocuments(
@@ -72,6 +60,34 @@ async getPosts() {
        return respone
     } catch (error) {
         console.error("error fetching post" , error)
+    }
+}
+
+async GetPostsbyuser(UserId) {
+    try {
+        const respones = await this.Database.listDocuments(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+           [
+                Query.equal('UserId', UserId) 
+            ]
+            )
+        return respones
+    } catch (error) {
+        console.error("Error while fetching the user posts")
+    }
+}
+
+async GetPostById (PostId) {
+    try {
+        const respone = await this.Database.getDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            PostId
+        ) 
+        return respone
+    } catch (error) {
+        console.log("Error while fetching the post by id" , error)
     }
 }
 
@@ -93,19 +109,15 @@ async DeleteFile(FileId) {
     }
 }
 
-async GetFilePreview (FileId) {
-    try {
-           if (!FileId) {
-  throw new Error("FileId is required");
-}
-     return    await this.storage.getFilePreview(conf.appwriteBucketId, FileId)
+ GetFilePreview (FileId) {
+     return     this.storage.getFileView(conf.appwriteBucketId, FileId)
   
         } catch (error) {
         console.error("error While PreViwing the File" , error)
     }
 }
 
-}
+
 
 
 

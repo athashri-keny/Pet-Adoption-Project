@@ -12,6 +12,7 @@ import AuthLayout from './AuthLayout.jsx'
 import Addpost from './Components/Addpost.jsx'
 import Puppies from './Components/Puppies.jsx'
 import Post from './Components/Post.jsx'
+import Userposts from './Components/Userposts.jsx'
 
 
 const Router = createBrowserRouter([
@@ -57,10 +58,18 @@ const Router = createBrowserRouter([
         )
       },
       {
-        path: "/post/PostId",
+        path: "/puppies/post/:PostId",
         element: (
           <AuthLayout>
             <Post/>
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/your-posts",
+        element: (
+          <AuthLayout authentication = {true}>
+            <Userposts/>
           </AuthLayout>
         )
       }

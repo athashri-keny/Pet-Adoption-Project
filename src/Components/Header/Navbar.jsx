@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Button from '../Container/Button'
 import Logout from './Logout'
+import { NavLink } from 'react-router-dom'
+
 
 function Navbar() {
   const Authstatus = useSelector((state) => state.Auth.status) // checking the current state of the user
@@ -31,7 +33,7 @@ const NavItem = [
   },
   {
     name: "Your Puppies",
-    link: "/post",
+    link: "/your-posts",
     active: Authstatus
   },
   {
@@ -43,29 +45,27 @@ const NavItem = [
 
   return (
     <>
-    <div className="w-full font-rubik bg-white py-6 px-10 flex items-center justify-between shadow-md">
-    
-    {/* Left: Logo (optional) */}
-    <div className="text-2xl font-bold text-yellow-500">
+    <div className="w-full font-rubik bg-white py-6 px-10 flex items-center justify-between shadow-md">  
+    <div className="text-2xl font-bold text-yellow-500 font-rubik">
       Tailwag
     </div>
-
-    {/* Center: Navigation Links */}
     <div className="space-x-4">
       {NavItem.map((item, index) =>
         item.active && (
-          <Link
-            key={index}
-            to={item.link}
-            className=" px-4 py-2 rounded-full hover:bg-yellow-500 hover:text-white transition text-sm"
-          >
-            {item.name}
-          </Link>
+        <NavLink
+  key={index}
+  to={item.link}
+  className={({ isActive }) =>
+    `px-4 py-2 rounded-full text-sm font-medium transition duration-300 ${
+      isActive ? "text-yellow-400 px-4 py-2 rounded-full text-sm " : "text-black"
+    } hover:bg-yellow-500 hover:text-white`
+  }
+>
+  {item.name}
+</NavLink>
         )
       )}
     </div>
-
-    {/* Right: Logout button */}
     <div>
       {Authstatus && <Logout />}
     </div>

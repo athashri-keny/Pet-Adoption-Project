@@ -6,10 +6,12 @@ import { Dog } from 'lucide-react'
 import { HeartPlus } from 'lucide-react'
 import { PartyPopper } from 'lucide-react'
 import LandlingPagePic from '../assets/Pics/LandlingPagePic.jpg'
+import firstpic from '../assets/Pics/firstpic.jpg'
+import Secondpic from  '../assets/Pics/Secondpic.jpg'
+import ThirdPic from '../assets/Pics/ThirdPic.jpg'
+
 
 function LandingPage() {
-
-
   return (
     <div className='relative w-full h-[400px] ' >
       <div>
@@ -73,15 +75,56 @@ function LandingPage() {
           </p>
          </div>
           </div>
-         <div className=' inline-block'>
-            <img
-         src= {LandlingPagePic}
-         className='object-auto mt-7'
-         />
-       <h1 className=''> Want a pet For your Loved Ones</h1>
-       <p> Apply here today NOw !</p>
-       <button className='text-3xl font-rubik text-white p-4 rounded-4xl bg-yellow-500'> Apply Today</button>
-         </div>
+         <div className="relative">
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-black opacity-30"></div>
+
+  {/* Background image */}
+  <img
+    src={LandlingPagePic}
+    className="w-full h-auto object-cover"
+    alt="Pet Landing"
+  />
+
+  {/* Overlay content */}
+  <div className="absolute inset-0 z-20 flex flex-col items-start justify-center p-10 left-9">
+    <p className="text-white text-3xl font-rubik mb-4">
+      Apply here today Now!
+    </p>
+
+    <h1 className="text-2xl font-semibold text-white font-rubik mb-4">
+      Want a pet for your Loved Ones?
+    </h1>
+
+    <button className="text-2xl font-rubik text-white p-4 rounded-3xl bg-yellow-500">
+      Apply Today
+    </button>
+  </div>
+</div>
+<div>
+  <div className='flex '>
+    <img 
+    src={firstpic}
+    className='object-cover'
+    />
+    <p>Find Your Pet </p>
+    <div>
+      <img
+      src= {Secondpic}
+      className='object-cover'
+/>
+<p>Know Your Pet </p>
+    </div>
+    <div>
+      <img
+      src= {ThirdPic}
+      className='object-cover'
+      />
+      <p>Take Your Pet Home </p>
+    </div>
+  </div>
+</div>
+
       </div>
   )
 }

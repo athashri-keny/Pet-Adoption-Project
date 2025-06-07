@@ -15,12 +15,18 @@ const {register , handleSubmit , formState: {errors} } = useForm()
 const [userId, setUserId] = useState("")
 const navigate = useNavigate()
 const [loading , setloading] = useState(false)
+const [city , setcity] = useState("")
+const [state , setstate] = useState("")
+const [location , setlocation] = useState("")
+const [Email , setEmail] = useState("")
+
 
 useEffect(() => {
 const GetCurrentUser = async () => {
   try {
     const response = await AuthService.GetCurrentUser()
     setUserId(response.$id) // setting the user id 
+    setEmail(response.email)
     console.log("Current user fetching sucessfully!" , response)
   } catch (error) {
     console.error("Error while fetchting the current user" , error)
@@ -28,6 +34,24 @@ const GetCurrentUser = async () => {
 }
 GetCurrentUser()
 } , [])
+
+
+const Fetchlocation = () => {
+navigator.geolocation.getCurrentPosition(async(position) => {
+  const lat = position.coords.latitude
+  const lon = position.coords.longitude
+
+  const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=2d700d74c5b248c4afdf47eabe6e22e2`)
+  const data = await response.json()
+ console.log(data)
+  const compontents = data.results[0]?.components
+
+  setcity(compontents.city)
+  setstate(compontents.state)
+  setlocation(compontents.city)
+ 
+})
+}
 
 const handle = async (data) => {
 
@@ -37,20 +61,24 @@ try {
 const uploadedFile = await DatabaseServicee.uploadFile(File )
 const FileId = uploadedFile.$id
 
+
   const newpost = {
     PostId: ID.unique(),
     UserId: userId,
     Petname: data?.Petname,
     About: data?.About,
-    Location: data?.Location,
+    Location: location ,
     PetImage: FileId,
     Gender: data?.Gender,
-    Vaccinated: data?.Vaccinated,
+    isVaccinated: Boolean(data?.isVaccinated),
     AGE: data?.AGE,
     Breed: data?.Breed,
     Size: data?.Size,
-    AnimalType: data?.AnimalType
+    AnimalType: data?.AnimalType,
+    Neutered: Boolean(data?.Neutered),
+    Email: data?.Email
   }
+  
   
    await DatabaseServicee.CreatePost(newpost)
       console.log("Post created successfully" , newpost)
@@ -62,16 +90,18 @@ const FileId = uploadedFile.$id
 }
 
   return (
-    <div className='flex '>
-    <div className="">
+    <div className=''>
+    <div className=" ">
       <form onSubmit={handleSubmit(handle)}>
+        <p >Petname</p>
         <input placeholder='Enter Petname' 
-        className='bg-white'
+        className='bg-white p-5 '
          type='text'
         {...register("Petname" , {
           required: "petname is required!",
         })}
         />
+        <p>About</p>
         {errors.Petname && (<p style={{color: "red"}}>{errors.Petname.message}</p>)}
         <input placeholder='Enter Info about pet' 
         type='text'
@@ -81,14 +111,14 @@ const FileId = uploadedFile.$id
         })}    
         />
         {errors.About && (<p style={{color: "red"}}>{errors.About.message}</p>)}
-        <input placeholder='Enter Location'
-            className='bg-white'
-         type='text'
-         {...register("Location" , {
-          required: "Location is required!"
-         })}
-         />
-         {errors.Location && (<p style={{color: "red"}}>{errors.Location.message}</p>)}
+         <div>
+          <button type='button' onClick={() => Fetchlocation()}>Fetch Your Current Location</button>
+         <p id='Location'>
+          {city}
+          {state}
+         </p>
+         </div>
+        <p>Pet Image</p>
          <input type='file'
          accept='image/*'
          className='bg-white'
@@ -97,6 +127,7 @@ const FileId = uploadedFile.$id
           })}
          />
          {errors.File && (<p style={{color: "red"}}>{errors.File.message}</p>)}
+         <p>Age</p>
          <input
          type='text'
          className='bg-white'
@@ -152,7 +183,7 @@ const FileId = uploadedFile.$id
          name="Vaccinated" 
          value="No" 
          id="no"
-         {...register("Vaccinated" , {
+         {...register("isVaccinated" , {
           required: "Vaccinated is required!"
          })}
          />
@@ -162,10 +193,11 @@ const FileId = uploadedFile.$id
          name="Vaccinated" 
           value="Yes" 
           id="yes"
-          {...register("Vaccinated" , {
+          {...register("isVaccinated" , {
             required: "Vaccinated is required!"
           })}
   />
+   <label for="yes">Yes</label>
   <label htmlFor="AnimalType">Animal Type</label>
 <select
   id="AnimalType"
@@ -180,7 +212,38 @@ const FileId = uploadedFile.$id
   <option value="Other">Other</option>
 </select>
 
-  <label for="yes">Yes</label>
+<p>Neutered?</p>
+<input
+type='radio'
+name='Neutered'
+value="yes"
+id='yes'
+{...register("Neutered" , {
+  required: "This info is required!"
+})}
+/>
+<label for ="yes"> Yes</label>
+<input
+type='radio'
+name='Neutered'
+value= "No"
+id='No'
+{...register("Neutered" , {
+  required: "This info is required!"
+})}
+/>
+<label for = "No">No</label>
+{errors.Neutered && (<p style={{color: "red"}}>{errors.Neutered.message}</p>)}
+ <p>Contact Details</p>
+ <input
+ type='text'
+ name='email'
+ placeholder='Enter Email'
+value={Email}
+{...register("Email" , {
+  required: "Email is required!"
+})}
+ />
           <button className='bg-red-600'> Submit</button>
       </form>
     </div>

@@ -13,6 +13,7 @@ const dispatch = useDispatch()
 const [error , seterror] = useState("")
 
 
+
 const handlesignup =  async(data) => {
   try {
     seterror("")
@@ -22,6 +23,7 @@ const handlesignup =  async(data) => {
      dispatch(login(data)) // updating the Store
      navigate('/')
  }
+ 
   } catch (error) {
     seterror(error.message)
   }
@@ -58,7 +60,8 @@ const handlesignup =  async(data) => {
       {errors.password && (
         <p style={{color: "red"}}>{errors.message}</p>
       )}
-     <Link to={'/login'}>
+      
+         <Link to={'/login'}>
       <button>Already Have An Account? Login</button>
      </Link>
       <button
@@ -67,6 +70,8 @@ const handlesignup =  async(data) => {
       >
         Create Account
       </button>
+    
+   
     </form>
   </div>
 </div>
