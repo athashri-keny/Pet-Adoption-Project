@@ -13,6 +13,9 @@ import Addpost from './Components/Addpost.jsx'
 import Puppies from './Components/Puppies.jsx'
 import Post from './Components/Post.jsx'
 import Userposts from './Components/Userposts.jsx'
+import About from './Footer/About.jsx'
+import ContactUs from './Components/ContactUs.jsx'
+
 
 
 const Router = createBrowserRouter([
@@ -72,7 +75,23 @@ const Router = createBrowserRouter([
             <Userposts/>
           </AuthLayout>
         )
-      }
+      },
+      {
+        path: "/About",
+        element: (
+          <AuthLayout>
+            <About/>
+          </AuthLayout>
+        )
+      },
+       {
+        path: "/apply",
+        element: (
+          <AuthLayout>
+            <ContactUs/>
+          </AuthLayout>
+        )
+       }
     ]
   }
 

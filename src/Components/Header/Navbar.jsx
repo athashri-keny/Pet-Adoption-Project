@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { act } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Button from '../Container/Button'
 import Logout from './Logout'
 import { NavLink } from 'react-router-dom'
+import { PawPrint } from 'lucide-react'
 
 
 function Navbar() {
@@ -40,15 +41,31 @@ const NavItem = [
     name: "Puppies",
     link: '/puppies',
     active: Authstatus || !Authstatus
-  }
+  },
+  {
+    name: "About",
+    link: "/About",
+    active: Authstatus || !Authstatus
+  },
+   {
+    name: "Contact Us",
+    link: "/apply",
+    active: Authstatus || !Authstatus
+   }
 ]
 
   return (
     <>
     <div className="w-full font-rubik bg-white py-6 px-10 flex items-center justify-between shadow-md">  
-    <div className="text-2xl font-bold text-yellow-500 font-rubik">
-      Tailwag
-    </div>
+   <div className="flex items-center gap-2">
+  <div className="text-2xl font-bold text-yellow-500 font-rubik">
+    Tailwag
+  </div>
+  <div className="text-yellow-500">
+    <PawPrint />
+  </div>
+</div>
+
     <div className="space-x-4">
       {NavItem.map((item, index) =>
         item.active && (

@@ -16,7 +16,7 @@ class DatabaseService{
     }
    
 
-async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , isVaccinated , AGE , Breed , Size , AnimalType , Neutered}){
+async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , isVaccinated , AGE , Breed , Size , AnimalType , Neutered , Email}){
   try {
      return await this.Database.createDocument(conf.appwriteDatabaseId , conf.appwriteCollectionId , PostId,
         {
@@ -32,7 +32,8 @@ async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gend
            Breed,
            Size,
            AnimalType,
-           Neutered
+           Neutered,
+           Email
          }
          
      )
@@ -62,6 +63,20 @@ async getPosts() {
         console.error("error fetching post" , error)
     }
 }
+
+async GetPostLandingPage() {
+    try {
+        const response = await this.Database.listDocuments(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            [Query.limit(3)]
+        )
+        return response
+    } catch (error) {
+        console.error("Error while fetching the landing posts " , error)
+    }
+}
+
 
 async GetPostsbyuser(UserId) {
     try {

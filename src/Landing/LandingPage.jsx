@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CoverImg from '../assets/Pics/CoverImg.jpg'
-import { Link, } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
 import DogPic from '../assets/Pics/DogPic.jpg'
 import { Dog } from 'lucide-react'
 import { HeartPlus } from 'lucide-react'
@@ -9,11 +9,35 @@ import LandlingPagePic from '../assets/Pics/LandlingPagePic.jpg'
 import firstpic from '../assets/Pics/firstpic.jpg'
 import Secondpic from  '../assets/Pics/Secondpic.jpg'
 import ThirdPic from '../assets/Pics/ThirdPic.jpg'
+import { PawPrint } from 'lucide-react'
+import { Cat } from 'lucide-react'
+import DatabaseServicee from '../appwrite/PicConfig'
+import About from '../Footer/About'
+
 
 
 function LandingPage() {
+const [posts , setposts] = useState([])
+const navigate = useNavigate()
+
+useEffect(() => {
+const FetchPost = async() => {
+  try {
+    const response = await DatabaseServicee.GetPostLandingPage()
+    setposts(response.documents) 
+    console.log(response)
+  } catch (error) {
+    console.error("Error while fetching the posts ")
+  }
+}
+FetchPost()
+} , [])
+
+
+
+
   return (
-    <div className='relative w-full h-[400px] ' >
+    <div className='relative w-full  ' >
       <div>
         <img src= {CoverImg} className='object-auto'/>
       </div>
@@ -76,17 +100,12 @@ function LandingPage() {
          </div>
           </div>
          <div className="relative">
-  {/* Dark overlay */}
   <div className="absolute inset-0 bg-black opacity-30"></div>
-
-  {/* Background image */}
   <img
     src={LandlingPagePic}
     className="w-full h-auto object-cover"
     alt="Pet Landing"
   />
-
-  {/* Overlay content */}
   <div className="absolute inset-0 z-20 flex flex-col items-start justify-center p-10 left-9">
     <p className="text-white text-3xl font-rubik mb-4">
       Apply here today Now!
@@ -101,28 +120,65 @@ function LandingPage() {
     </button>
   </div>
 </div>
-<div>
-  <div className='flex '>
-    <img 
-    src={firstpic}
-    className='object-cover'
-    />
-    <p>Find Your Pet </p>
-    <div>
-      <img
-      src= {Secondpic}
-      className='object-cover'
-/>
-<p>Know Your Pet </p>
+<div className="p-9">
+     <div className="flex items-center justify-center mt-12 mb-20 gap-4">
+    <h1 className="text-4xl font-rubik ">
+    Pet Adoption Process
+  </h1>
+      <PawPrint className="w-10 h-10 text-yellow-500" />
+</div>
+  <div className="flex gap-6 items-center">
+    <div className="text-center">
+      <img src={firstpic} className="object-cover w-110 h-80 rounded-3xl" alt="Find your pet" />
+      <p className="mt-2 text-2xl font-rubik pb-8" >Find Your Pet</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. <br></br>on error dolorum et harum consequuntur re
+      </p>
     </div>
-    <div>
-      <img
-      src= {ThirdPic}
-      className='object-cover'
-      />
-      <p>Take Your Pet Home </p>
+    <div className="text-center">
+      <img src={Secondpic} className="object-cover w-110 h-80 rounded-3xl" alt="Know your pet" />
+      <p className="mt-2 text-2xl font-rubik pb-8 ">Know Your Pet</p>
+       <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. <br></br>on error dolorum et harum consequuntur re
+      </p>
+    </div>
+    <div className="text-center">
+      <img src={ThirdPic} className="object-cover  w-110 h-80 rounded-3xl" alt="Take your pet home" />
+      <p className="mt-2 text-2xl font-rubik pb-8">Take Your Pet Home</p>
+       <p >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. <br></br>on error dolorum et harum consequuntur re
+      </p>
     </div>
   </div>
+  </div>
+ <div className='text-center text-4xl p-16 font-rubik'>
+  <h1 className='flex justify-center items-center gap-2'>
+    Our Todays Featured Pets
+    <Cat className='mt-1 w-10 h-10 text-yellow-400' />
+  </h1>
+</div>
+
+<div>
+
+  <div className='pl-33  '>
+   <div className='p-3.5 flex content-evenly gap-29  '>
+  {posts.map((post) => ( 
+      <div>
+         <img
+        src={DatabaseServicee.GetFilePreview(post.PetImage)}
+        className="object-cover w-64 h-64 rounded-3xl"
+      />
+      <div>
+ <h1 className='font-rubik  text-2xl p-3 mb-1 '>{post.Petname}</h1>
+ <p className='font-rubik  p-3 mb-9'>{post.About}</p>
+      <button onClick={() => (navigate(`/puppies/post/${post.PostId} `))} className='bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 text-white rounded-full px-4 py-2 shadow-md hover:scale-105"'>Learn More </button>
+      </div>
+ </div>
+  )
+)}
+   </div>
+  </div>
+
 </div>
 
       </div>

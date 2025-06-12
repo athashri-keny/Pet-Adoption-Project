@@ -26,7 +26,10 @@ try {
 }
 
   return (
-    <button onClick = {handleLogout}>Logout</button>
+  <button onClick={handleLogout} className="bg-white hover:bg-red-500 rounded-4xl p-2 transition duration-300">
+  Logout
+</button>
+
   )
 }
 
