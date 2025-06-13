@@ -24,7 +24,6 @@ const [filteredposts , setfilteredpost] = useState([])
             const response = await DatabaseServicee.getPosts()
              setAllposts(response.documents)
             setfilteredpost(response.documents)
-             console.log("Fetched sucessfully" , response)  
         } catch (error) {
             console.error("error while fetching the data from bacckend" , error)
         }
@@ -94,24 +93,36 @@ const all = () => {
 </div>
 
   
-  <div className='pl-16 '>
-   <div className='p-3.5 flex content-evenly gap-29 l '>
-  {filteredposts.map((post) => ( 
-    <Link key={post.PostId} to={`/puppies/post/${post.PostId}` }>
-         <img
-        src={DatabaseServicee.GetFilePreview(post.PetImage)}
-        className="object-cover w-64 h-64 rounded-3xl"
-      />
-      <div>
- <h1 className='font-rubik  text-2xl p-3 mb-1 '>{post.Petname}</h1>
- <p className='font-rubik  p-3 mb-9'>{post.About}</p>
-      <button onClick={() => (navigate(`/post/${post.PostId} `))} className='bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 text-white rounded-full px-4 py-2 shadow-md hover:scale-105"'>Learn More </button>
-      </div>
-    </Link>
-  )
-)}
-   </div>
+<div className="pl-16">
+  <div className="p-3.5 flex flex-wrap gap-16">
+    {filteredposts.map((post) => (
+      <Link
+        key={post.PostId}
+        to={`/puppies/post/${post.PostId}`}
+        className="w-72 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+      >
+        <img
+          src={DatabaseServicee.GetFilePreview(post.PetImage)}
+          alt={post.Petname}
+          className="object-cover w-88 h-70 rounded-t-xl hover:transition-all duration-300"
+        />
+        <div className="p-6">
+          <h1 className="font-rubik text-xl font-semibold mb-2">{post.Petname}</h1>
+          <p className="font-rubik text-sm text-gray-700 whitespace-pre-line mb-4">
+            {post.About}
+          </p>
+          <button
+            onClick={() => navigate(`/puppies/post/${post.PostId}`)}
+            className="bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 text-white text-sm rounded-full px-4 py-2 shadow-md hover:scale-105"
+          >
+            Learn More →
+          </button>
+        </div>
+      </Link>
+    ))}
   </div>
+</div>
+
 </div>
 
   )

@@ -8,9 +8,6 @@ function AuthLayout({children , authentication = true}) {
 const AuthStatus = useSelector((state) => state.Auth.status ) // true or false 
 const navigate = useNavigate()
 const [loader , setloader] = useState(true)
-console.log("Auth status " , AuthStatus)
-
-
 
 // the user is not login
   useEffect(() => {

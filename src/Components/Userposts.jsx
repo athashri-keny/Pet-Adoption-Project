@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatabaseServicee from '../appwrite/PicConfig'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import AuthService from '../appwrite/Auth'
 
 
 function Userposts() {
 const [post , setposts] = useState([])
-const navigate = useNavigate()
-
+const [deletemsg , setdeletemsg] = useState(false)
 
 
 useEffect(() => {
  const fetchPost =  async() => {
     try {
            const userdata = await AuthService.GetCurrentUser()
-        console.log(userdata)
         const UserId = userdata.$id
          const response = await DatabaseServicee.GetPostsbyuser(UserId)
-         console.log(response)
         setposts(response.documents)
-        console.log("User post fetched Sucesfully" , response)
-       
     } catch (error) {
         console.error("Error while fetching the posts " , error)
     }
@@ -30,11 +23,16 @@ useEffect(() => {
 } , [])
 
 const deletePost = async(ImageId) => {
+  setdeletemsg(false)
     try {
         await DatabaseServicee.DeletePost(ImageId)
         console.log("Image deleted Sucessfully")
+        setTimeout(() => {
+          setdeletemsg(true)
+        }, 3000);
     } catch (error) {
         console.error("Error while deleteing the post" , error)
+        setdeletemsg(false)
     }
 }
 
@@ -44,31 +42,38 @@ const deletePost = async(ImageId) => {
     <p className="text-center mt-6 text-lg font-semibold">You haven't posted anything yet.</p>
   ) : (
     <div className="pl-16">
-      <div className="p-3.5 flex flex-wrap gap-10">
+      <div className="p-3.5 flex flex-wrap gap-16">
         {post.map((post, index) => (
-          <div key={index} className="flex flex-col items-center">
+          <div key={index} className="flex ">
             <img
               src={DatabaseServicee.GetFilePreview(post.PetImage)}
-              className="object-cover w-64 h-64 rounded-3xl"
+              className="object-cover w-88 h-70 rounded-t-xl hover:transition-all duration-300 rounded-2xl"
               alt="Pet"
             />
-            <div className="mt-2 text-center">
-              <h1 className="font-rubik text-2xl p-3 mb-1">{post.Petname}</h1>
-              <p className="font-rubik p-3 mb-9">{post.About}</p>
-              <button
-                onClick={() => deletePost(post.PostId)}
-                className="bg-red-500 rounded-2xl p-2 text-white"
-              >
-                Delete
-              </button>
-            </div>
+            <div className="p-6">
+              <h1 className="font-rubik text-xl font-semibold mb-2">{post.Petname}</h1>
+              <p className="font-rubik text-sm text-gray-700 whitespace-pre-line mb-4">{post.About}</p>
+              {deletemsg ? (
+               <div>
+                <p className='font-rubik text-2xl text-green-600'> Post Deleted Sucessfully</p>
+                 </div>
+              ) : (
+                <div> 
+  <button
+  onClick={() => deletePost(post.PostId)}
+  className="bg-red-500 rounded-2xl p-2 text-white"
+>
+  Delete
+</button>
+                </div>
+              )}
+         </div>
           </div>
         ))}
       </div>
     </div>
   )}
 </div>
-
 )
 }
 

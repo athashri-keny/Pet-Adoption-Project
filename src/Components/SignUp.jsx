@@ -44,7 +44,7 @@ const handlesignup =  async(data) => {
       message: "Enter a valid email address"
     }
   })}
-  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
 />
     {errors.email && (
       <p style={{color: "red"}}>{errors.message}</p>
@@ -55,14 +55,14 @@ const handlesignup =  async(data) => {
         {...register("password" , {
           required: "Password is required"
         })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
       {errors.password && (
         <p style={{color: "red"}}>{errors.message}</p>
       )}
       
          <Link to={'/login'}>
-      <button>Already Have An Account? Login</button>
+      <button className='font-rubik'>Already Have An Account? Login</button>
      </Link>
       <button
         type="submit"

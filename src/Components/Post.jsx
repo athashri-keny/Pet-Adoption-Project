@@ -8,11 +8,6 @@ import About from '../Footer/About'
 function Post() {
 const [post , setpost] = useState([])
 const [Imageid , setImageId] = useState("")
-// gets posts and display them using get posts
-// 
-const userdata = useSelector((state) => state.Auth.userdata)
-console.log(userdata)
-
 const {PostId} = useParams()
 
 
@@ -61,25 +56,28 @@ return (
     <div className="grid grid-cols-2 gap-y-2 text-gray-700 text-md font-rubik">
       <p><strong>Gender:</strong> {post?.Gender}</p>
       <p><strong>Breed:</strong> {post?.Breed}</p>
-      <p><strong>Neutered:</strong> {post?.Neutered}</p>
+      <p><strong>Neutered:</strong> {post?.Neutered ? "Yes" : "No"}</p>
       <p><strong>Vaccinated:</strong> {post?.isVaccinated ? "Yes" : "No"}</p>
       <p><strong>Age:</strong> {post?.AGE}</p>
       <p><strong>Size:</strong> {post?.Size}</p>
       <p><strong>Location:</strong> {post?.Location}</p>
+    
     </div>
 
     <p className="mt-6 text-gray-600 leading-relaxed">
       {post?.About || "This pet is looking for a loving home. Give them a chance to be your next best friend!"}
     </p>
     <div>
-      <p className='p-3 font-rubik text-xl'>User Contact Details</p>
+      <p className='p-5 mt-3.5  font-rubik text-xl'>Owner Contact Details</p>
        <p className='font-rubik '><strong>Email:</strong > {post?.Email}</p>
+         <p><strong>Phone Number:</strong> {post?.number}</p>
     </div>
+    <p className='font-rubik pt-15'>Having Trouble Contacting PetOwner ? Contact Us</p>
     <Link
       to="/apply"
-      className="inline-block mt-6 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg font-semibold transition-all duration-200"
+      className="inline-block mt-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg font-semibold transition-all duration-200"
     >
-      Apply Today →
+      Contact Us
     </Link>
   </div>
 

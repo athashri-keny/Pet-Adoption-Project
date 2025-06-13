@@ -16,7 +16,6 @@ setShowThankyou(true)
 
  <div className="bg-white p-10">
   <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-start">
-    {/* Left Section - Contact Info */}
     <div>
       <h2 className="text-2xl font-semibold mb-4">Send us a Message</h2>
       <hr className="mb-4 border-gray-300" />
@@ -25,8 +24,6 @@ setShowThankyou(true)
         majority have suffered alteration in some form, by injected humour, or
         randomised words which don’t look even slightly believable.
       </p>
-
-      {/* Phone */}
       <div className="flex items-center gap-4 mb-4">
         <div className="bg-red-500 text-white p-3 rounded-full">
           <Phone size={20} />
@@ -36,8 +33,6 @@ setShowThankyou(true)
           <p className="font-semibold text-black">(800) 123-45789</p>
         </div>
       </div>
-
-      {/* Email */}
       <div className="flex items-center gap-4 mb-4">
         <div className="bg-red-500 text-white p-3 rounded-full">
           <Mail size={20} />
@@ -47,8 +42,6 @@ setShowThankyou(true)
           <p className="font-semibold text-black">help@yourcompany.com</p>
         </div>
       </div>
-
-      {/* Address */}
       <div className="flex items-center gap-4">
         <div className="bg-red-500 text-white p-3 rounded-full">
           <MapPin size={20} />
@@ -61,8 +54,6 @@ setShowThankyou(true)
         </div>
       </div>
     </div>
-
-    {/* Right Section - Form */}
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input

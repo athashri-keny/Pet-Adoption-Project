@@ -12,7 +12,6 @@ import ThirdPic from '../assets/Pics/ThirdPic.jpg'
 import { PawPrint } from 'lucide-react'
 import { Cat } from 'lucide-react'
 import DatabaseServicee from '../appwrite/PicConfig'
-import About from '../Footer/About'
 
 
 
@@ -25,15 +24,12 @@ const FetchPost = async() => {
   try {
     const response = await DatabaseServicee.GetPostLandingPage()
     setposts(response.documents) 
-    console.log(response)
   } catch (error) {
     console.error("Error while fetching the posts ")
   }
 }
 FetchPost()
 } , [])
-
-
 
 
   return (
@@ -170,7 +166,7 @@ FetchPost()
       />
       <div>
  <h1 className='font-rubik  text-2xl p-3 mb-1 '>{post.Petname}</h1>
- <p className='font-rubik  p-3 mb-9'>{post.About}</p>
+ <p className='font-rubik  whitespace-pre-line mb-6 text-sm'>{post.About}</p>
       <button onClick={() => (navigate(`/puppies/post/${post.PostId} `))} className='bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 text-white rounded-full px-4 py-2 shadow-md hover:scale-105"'>Learn More </button>
       </div>
  </div>

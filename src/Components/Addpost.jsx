@@ -14,7 +14,7 @@ import About from '../Footer/About'
 // use react hook form for submitting 
 // create a object and Add value 
 function Addpost() {
-const {register , handleSubmit , formState: {errors} } = useForm()
+const {register , handleSubmit , formState: {errors} , reset } = useForm()
 const [userId, setUserId] = useState("")
 const navigate = useNavigate()
 const [loading , setloading] = useState(false)
@@ -26,17 +26,19 @@ const [success , setsuccss] = useState(false)
 
 
 
+
+
 useEffect(() => {
 const GetCurrentUser = async () => {
   try {
     const response = await AuthService.GetCurrentUser()
     setUserId(response.$id) // setting the user id 
     setEmail(response.email)
+    reset({Email: response.email}) // refresh the empty string with email value 
     console.log("Current user fetching sucessfully!" , response)
   } catch (error) {
     console.error("Error while fetchting the current user" , error)
-    setloading(false)
-    
+    setloading(false)   
   }
 }
 GetCurrentUser()
@@ -80,13 +82,13 @@ const FileId = uploadedFile.$id
     Size: data?.Size,
     AnimalType: data?.AnimalType,
     Neutered: Boolean(data?.Neutered),
-    Email: Email
+    Email: Email,
+    number: data?.number
   }
   
   
    await DatabaseServicee.CreatePost(newpost)
       console.log("Post created successfully" , newpost)
-      navigate('/')
    setTimeout(() => {
   navigate('/')
   setloading(false)
@@ -318,22 +320,25 @@ setsuccss(true)
  name='Email'
  placeholder='Enter Email'
  className='font-rubik p-3 bg-white  shadow-sm w-69 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none'
-value={Email}
-readOnly
+defaultValue={Email}
 {...register("Email" , {
   required: "Email is required!"
 })}
  />
  {errors.Email && (<p style={{color: "red"}}>{errors.Email.message}</p>)}
-
-       <div className="flex justify-center w-full pt-6 p-7 ">
-  <button className="bg-yellow-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-yellow-700 transition">
-    Submit
-  </button>
-</div>
-
-      </form>
-     <div className="flex justify-center w-full pt-6 p-7">
+ 
+ <input
+ type='number'
+ name='number'
+ placeholder='Enter Number'
+ className='font-rubik p-3  bg-white shadow-sm w-69 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none'
+{...register("number" , {
+  required: "number is required!"
+})}
+ />
+ {errors.number && (<p style={{color: "red"}}>{errors.number.message}</p>)}
+ 
+ <div className="flex justify-center w-full pt-6 p-7">
   {loading ? (
     <div className="flex justify-center items-center gap-2">
       <div className="w-5 h-5 border-4 border-white border-t-yellow-500 rounded-full animate-spin"></div>
@@ -350,7 +355,7 @@ readOnly
     </button>
   )}
 </div>
-
+      </form>
     </div>
    <About/>
     </div>

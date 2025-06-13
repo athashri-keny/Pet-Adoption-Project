@@ -16,7 +16,7 @@ class DatabaseService{
     }
    
 
-async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , isVaccinated , AGE , Breed , Size , AnimalType , Neutered , Email}){
+async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gender , isVaccinated , AGE , Breed , Size , AnimalType , Neutered , Email , number}){
   try {
      return await this.Database.createDocument(conf.appwriteDatabaseId , conf.appwriteCollectionId , PostId,
         {
@@ -33,7 +33,8 @@ async CreatePost({Petname  , About , Location , UserId , PetImage, PostId , Gend
            Size,
            AnimalType,
            Neutered,
-           Email
+           Email,
+           number
          }
          
      )

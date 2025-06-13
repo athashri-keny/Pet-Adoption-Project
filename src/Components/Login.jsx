@@ -44,7 +44,7 @@ const HandleLogin =  async(data) => {
       message: "Enter a valid email address"
     }
         })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
       <input
         type="password"
@@ -52,12 +52,12 @@ const HandleLogin =  async(data) => {
         {...register("password" , {
           required: "password is required!", 
         })}
-        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
        <Link
       to='/signup' 
       >
-      <button> Dont Have An Account ? Signup Here!</button>
+      <button className='font-rubik'> Dont Have An Account ? Signup Here!</button>
       </Link>
       <button
         type="submit"

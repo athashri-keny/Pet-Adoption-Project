@@ -54,7 +54,7 @@ const Router = createBrowserRouter([
       {
         path: "/puppies",
         element: (
-          <AuthLayout authentication = {true}>
+          <AuthLayout authentication = {false}>
             <Puppies/>
           </AuthLayout>
          
@@ -79,7 +79,7 @@ const Router = createBrowserRouter([
       {
         path: "/About",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication = {false}>
             <About/>
           </AuthLayout>
         )
@@ -87,7 +87,7 @@ const Router = createBrowserRouter([
        {
         path: "/apply",
         element: (
-          <AuthLayout>
+          <AuthLayout authentication = {false}>
             <ContactUs/>
           </AuthLayout>
         )
