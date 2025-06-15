@@ -79,7 +79,7 @@ const Router = createBrowserRouter([
       {
         path: "/About",
         element: (
-          <AuthLayout authentication = {false}>
+          <AuthLayout>
             <About/>
           </AuthLayout>
         )
@@ -87,7 +87,7 @@ const Router = createBrowserRouter([
        {
         path: "/apply",
         element: (
-          <AuthLayout authentication = {false}>
+          <AuthLayout >
             <ContactUs/>
           </AuthLayout>
         )
