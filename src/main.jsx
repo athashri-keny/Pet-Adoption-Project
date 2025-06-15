@@ -54,18 +54,16 @@ const Router = createBrowserRouter([
       {
         path: "/puppies",
         element: (
-          <AuthLayout >
+
             <Puppies/>
-          </AuthLayout>
+
          
         )
       },
       {
         path: "/puppies/post/:PostId",
         element: (
-          <AuthLayout>
             <Post/>
-          </AuthLayout>
         )
       },
       {
@@ -79,17 +77,16 @@ const Router = createBrowserRouter([
       {
         path: "/About",
         element: (
-          <AuthLayout>
+        
             <About/>
-          </AuthLayout>
         )
       },
        {
         path: "/apply",
         element: (
-          <AuthLayout >
+       
             <ContactUs/>
-          </AuthLayout>
+
         )
        }
     ]
