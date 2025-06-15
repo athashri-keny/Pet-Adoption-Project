@@ -54,7 +54,7 @@ const Router = createBrowserRouter([
       {
         path: "/puppies",
         element: (
-          <AuthLayout authentication = {false}>
+          <AuthLayout >
             <Puppies/>
           </AuthLayout>
          
