@@ -93,21 +93,21 @@ const all = () => {
 </div>
 
   
-<div className="pl-16">
-  <div className="p-3.5 flex flex-wrap gap-16">
+<div className="pl-26">
+  <div className="p-3.5 flex flex-wrap gap-13">
     {filteredposts.map((post) => (
       <Link
         key={post.PostId}
         to={`/puppies/post/${post.PostId}`}
-        className="w-72 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+        className="w-80 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
       >
         <img
           src={DatabaseServicee.GetFilePreview(post.PetImage)}
           alt={post.Petname}
-          className="object-cover w-88 h-70 rounded-t-xl hover:transition-all duration-300"
+          className="object-cover w-95 h-70 rounded-t-xl hover:transition-all duration-300"
         />
-        <div className="p-6">
-          <h1 className="font-rubik text-xl font-semibold mb-2">{post.Petname}</h1>
+        <div className="p-8">
+          <h1 className="font-rubik text-2xl font-semibold mb-3">{post.Petname}</h1>
           <p className="font-rubik text-sm text-gray-700 whitespace-pre-line mb-4">
             {post.About}
           </p>
