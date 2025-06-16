@@ -30,6 +30,11 @@ useEffect(() => {
  , [])
 
   return !loading ? (
+    // to upscale the app
+    // able to  add multiple photos of the pics 
+    // make desgin responsive
+    // add Navlink in puppies sections
+    // add dark mode option 
 
 <div>
   <div>
