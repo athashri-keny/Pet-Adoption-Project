@@ -33,7 +33,7 @@ FetchPost()
  
 
   return (
-    <div className='relative w-full sm:-[600px] md:w-[800px] lg:w-[1240px]  ' >
+    <div className='relative w-full sm:-[600px] md:w-[800px] lg:w-[1351px]  ' >
       <div>
         <img src= {CoverImg} className='object-auto'/>
       </div>
