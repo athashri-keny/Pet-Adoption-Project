@@ -41,7 +41,7 @@ Live Demo - https://pet-adoption-project-bntc.vercel.app/
 
 🧑‍💻 Getting Started
 1. Clone the repo
-git clone https://github.com/yourusername/pet-adoption-project.git
+git clone https://github.com/athashri-keny/pet-adoption-project.git
 cd pet-adoption-project
 2. Install dependencies
    npm install
