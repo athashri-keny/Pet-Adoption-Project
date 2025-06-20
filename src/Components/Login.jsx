@@ -46,6 +46,7 @@ const HandleLogin =  async(data) => {
         })}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
+            {errors.email && (<p style={{color: "red"}}>{errors.email.message}</p>)}
       <input
         type="password"
         placeholder="Enter your Password"
@@ -54,6 +55,7 @@ const HandleLogin =  async(data) => {
         })}
         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
+      {errors.password && (<p style={{color: "red"}}>{errors.password.message}</p>)}
        <Link
       to='/signup' 
       >

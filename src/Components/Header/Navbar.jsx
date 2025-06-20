@@ -56,8 +56,10 @@ const NavItem = [
 
   return (
     <>
-    <div className="w-full font-rubik bg-white py-6 px-10 flex items-center justify-between shadow-md">  
-   <div className="flex items-center gap-2">
+    <div className="w-full font-rubik bg-white lg:py-6 px-10 flex items-center justify-between shadow-md overflow-hidden
+    sm: flex=px-6 py-5 
+    ">  
+   <div className="  sm:items-center lg:flex items-center ">
   <div className="text-2xl font-bold text-yellow-500 font-rubik">
     Tailwag
   </div>
@@ -66,7 +68,7 @@ const NavItem = [
   </div>
 </div>
 
-    <div className="space-x-4">
+    <div className="">
       {NavItem.map((item, index) =>
         item.active && (
         <NavLink
